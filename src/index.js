@@ -4,14 +4,19 @@ const app=express();
 
 const Tweet=require('./models/tweet')
 
+
+
+
 app.listen(3000,async()=>{
     console.log('Server is running on port 3000');
     await connect();
     console.log("MongoDB connected successfully");
     
     const tweet=await Tweet.create({
-        content:"This is my first tweet",
-        userEmail:"satendarpradum@gmail.com"
-    })
+     content:"This is my first tweet",
+    });
+   console.log(tweet);
+   tweet.comments.push({content:"First tweet"});
+    await tweet.save();
     console.log(tweet);
 })
