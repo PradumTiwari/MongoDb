@@ -1,9 +1,9 @@
-const express=require('express');
+import express from 'express';
 
 const router=express.Router();
 
-const v1ApiRoutes=require('./v1/index');
+import v1Routes from './v1/index.js';
 
-router.use('/v1',v1ApiRoutes);
+router.use('/v1',v1Routes);
 
-module.exports=router;
+export default router;

@@ -1,22 +1,25 @@
-const {TweetService} =require('../services/index')
+import TweetService from '../services/tweet-service.js';
+const tweetService=new TweetService();
 
-
-
-const createTweet=async(req,res)=>{
+export const createTweet=async(req,res)=>{
     try {
-        const tweetService=new TweetService();
+       
         const tweet=await tweetService.create(req.body);
-        return res.status(200).json({
+        return res.status(201).json({
             sucess:true,
             data:tweet,
             err:{},
-            message:"Sucessfully Created Tweet"
+            message:"Sucessfully Created a new Tweet"
         })
     
     } catch (error) {
-     console.log(error);
+     return res.status(500).json({
+        sucess:false,
+        data:{},
+        message:'Something Went Wrong While Creating The Tweet',
+        err:error,
+     })
     }
 }
 
 
-module.exports={createTweet}
