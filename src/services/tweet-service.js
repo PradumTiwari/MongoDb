@@ -1,31 +1,33 @@
-import  {HashtagRepository,TweetRepository} from '../repository/index.js';
-class TweetService{
-    constructor(){
+import { TweetRepository, HashtagRepository } from '../repository/index.js'
+
+class TweetService {
+    constructor() {
         this.tweetRepository = new TweetRepository();
-        this.hashtagRepository=new HashtagRepository();
+        this.hashtagRepository = new HashtagRepository();
     }
 
-   async create(data){
-    const content = data.content;
-    const tags = content.match(/#[a-zA-Z0-9_]+/g).map((tag) => tag.substring(1)); // this regex extracts hashtags
-    const tweet = await this.tweetRepository.create(data);
-    let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
-    if (alreadyPresentTags.length > 0) {
-        let titleOfPresenttags = alreadyPresentTags.map(tag => tag.title);
+    async create(data) {
+        const content = data.content;
+        const tags = content.match(/#[a-zA-Z0-9_]+/g).map((tag) => tag.substring(1)).map(tag=>tag.toLowerCase()); // this regex extracts hashtags
+        const tweet = await this.tweetRepository.create(data);
+        let alreadyPresentTags = await this.hashtagRepository.findByName(tags);
+        let titleOfPresenttags = alreadyPresentTags.map(tags => tags.title);
         let newTags = tags.filter(tag => !titleOfPresenttags.includes(tag));
         newTags = newTags.map(tag => {
-            return { title: tag, tweets: [tweet.id] }
+            return {title: tag, tweets: [tweet.id]}
         });
+        console.log(newTags);
         await this.hashtagRepository.bulkCreate(newTags);
         alreadyPresentTags.forEach((tag) => {
             tag.tweets.push(tweet.id);
             tag.save();
         });
-    }
-    return tweet;
+        return tweet;
     }
 }
 
-
-
 export default TweetService;
+
+/*
+    this is my #first #tweet . I am really #excited
+*/

@@ -1,50 +1,51 @@
-
 import Hashtag from '../models/hashtag.js';
-
-
-class HashtagRepository{
-    async create(data){
-           try {
-            const tag=await Hashtag.create(data);
+class HashtagRepository {
+    
+    async create(data) {
+        try {
+            const tag = await Hashtag.create(data);
             return tag;
-           } catch (error) {
+        } catch (error) {
             console.log(error);
-           }
+        }
     }
 
-    async bulkCreate(data){
+    async bulkCreate(data) {
         try {
-            const tags= await Hashtag.insertMany(data);
+            const tags = await Hashtag.insertMany(data);
             return tags;
         } catch (error) {
             console.log(error);
         }
     }
-    async get(id){
-      
+
+    async get(id) {
         try {
-            const tag=await Hashtag.findById(id);
+            const tag = await Hashtag.findById(id);
             return tag;
         } catch (error) {
             console.log(error);
         }
     }
-    
-    async findByName(titleList){
+
+    async destroy(id) {
         try {
-            const tags=await Hashtag.find({
-                title:titleList
-                }).select('title');
-                return tags;
+            const response = await Hashtag.findByIdAndRemove(id);
+            return response;
         } catch (error) {
             console.log(error);
         }
     }
 
-
-    async destroy(){
-       const response=await Hashtag.findByIdAndDelete(id);
-         return response;
+    async findByName(titleList) {
+        try {
+            const tags = await Hashtag.find({
+                title: titleList
+            });
+            return tags;
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 

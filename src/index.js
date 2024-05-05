@@ -8,6 +8,6 @@ app.listen(3000,async()=>{
     console.log('Server is running on port 3000');
     await connect();
     console.log('MongoDB connected');
-    const serviceInstance=new service();
-    serviceInstance.create({content:'Hello #world'})
+    const ser=new service();
+    await ser.create({content:'CAPITAL #DOLLARSIGN #LETTER'});
 })
