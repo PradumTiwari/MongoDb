@@ -24,7 +24,9 @@ app.listen(3000,async()=>{
     //     name:"Pradum"
     // })
 
+
     const likeService=new LikeService();
+    
     await likeService.toggleLike('662f448e4225d30a499d44fc','Tweet','6647acbc46c1448712b59fdf');
     
 })
