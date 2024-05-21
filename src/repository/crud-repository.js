@@ -24,9 +24,17 @@ class CrudRepository{
         }
     }
 
+    async get(id){
+        try {
+            const result=await this.model.findById(id);
+            return result;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 
-
-    async getAll(id){
+    async getAll(){
         try {
             const result=await this.model.findById({});
            return result;
