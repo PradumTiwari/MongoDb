@@ -15,7 +15,6 @@ app.listen(3000,async()=>{
     await connect();
     console.log('MongoDB connected');
     const TweetRepo=await new TweetRepository();
-  
- 
+
     
 })
