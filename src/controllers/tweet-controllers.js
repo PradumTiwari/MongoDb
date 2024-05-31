@@ -1,47 +1,43 @@
-import TweetService from '../services/tweet-service.js';
-const tweetService=new TweetService();
+import TweetService from "../services/tweet-service.js";
 
-export const createTweet=async(req,res)=>{
+const tweetService = new TweetService();
+
+export const createTweet = async (req, res) => {
+    console.log(req.body);
     try {
-       
-        const tweet=await tweetService.create(req.body);
+        const response = await tweetService.create(req.body);
+        console.log("response", response);
         return res.status(201).json({
-            sucess:true,
-            data:tweet,
-            err:{},
-            message:"Sucessfully Created a new Tweet"
-        })
-    
-    } catch (error) {
-     return res.status(500).json({
-        sucess:false,
-        data:{},
-        message:'Something Went Wrong While Creating The Tweet',
-        err:error,
-     })
-    }
-}
-
-export const getTweet=async(req,res)=>{
-    try {
-        const response=await tweetService.get(req.params.id);
-        return res.status(200).json({
-            sucess:true,
-            message:'Sucessfully Fetched The Tweet',
-            data:response,
-            err:{}
-        })
+            success: true,
+            message: 'Successfully created a new tweet',
+            data: response,
+            err: {}
+        });
     } catch (error) {
         return res.status(500).json({
-            sucess:false,
-            data:{},
-            message:'Something Went Wrong While Fetching The Tweet',
-            err:error,
-        })
+            success: false,
+            message: 'something went wrong',
+            data: {},
+            err: error
+        });
     }
 }
 
-
-
-
-
+export const getTweet = async (req, res) => {
+    try {
+        const response = await tweetService.get(req.params.id);
+        return res.status(200).json({
+            success: true,
+            message: 'Successfully fetched a tweet',
+            data: response,
+            err: {}
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'something went wrong',
+            data: {},
+            err: error
+        });
+    }
+}

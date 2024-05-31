@@ -5,8 +5,10 @@ class TweetRepository extends CrudRepository{
         super(Tweet);
     }
     async create(data){
+        console.log("Pradum Repo",data);
            try {
             const tweet=await Tweet.create(data);
+           
             return tweet;
            } catch (error) {
             console.log(error);

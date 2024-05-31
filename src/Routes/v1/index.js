@@ -5,9 +5,12 @@ import { createComment } from '../../controllers/comment-controller.js';
 import { getTweet } from '../../controllers/tweet-controllers.js';
 import { signUp } from '../../controllers/auth-controller.js';
 import {login} from '../../controllers/auth-controller.js'
+
+import {authenticate} from '../../middlewares/authenticate.js'
+
 const router=express.Router();
 
-router.post('/tweets',createTweet);
+router.post('/tweets',authenticate,createTweet);
 router.post('/likes/toggle',toggleLike);
 router.post('/comment',createComment);
 router.get('/tweets/:id',getTweet);
