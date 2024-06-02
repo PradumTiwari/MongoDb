@@ -18,7 +18,7 @@ export const createTweet = async (req, res) => {
             }
             console.log('Image Url is ',req.file);
             const payload=req.body;
-            payload.image=req.file.location;
+            payload.images=req.file.location;
             const response = await tweetService.create(payload);
             console.log("response", response);
             return res.status(201).json({
