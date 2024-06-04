@@ -20,10 +20,11 @@ const tweetSchema = new mongoose.Schema({
             ref: 'Comment'
         }
     ],
-    images:
+    images:[
         {
             type:String,
         }
+    ]
     
 }, {timestamps: true});
 
