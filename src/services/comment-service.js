@@ -40,6 +40,15 @@ console.log("commentable",commentable);
 
     }
 
+    async getComment(commentId){
+       try {
+        return this.commentRepository.get(commentId);
+       } catch (error) {
+        throw new Error('Comment Not Found');
+       }
+
+    }
+
  } 
 
  export default CommentService;
